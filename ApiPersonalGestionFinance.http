@@ -1,0 +1,6 @@
+@ApiPersonalGestionFinance_HostAddress = http://localhost:5289
+
+GET {{ApiPersonalGestionFinance_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
