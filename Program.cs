@@ -1,12 +1,14 @@
+using ApiPersonalGestionFinance.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-// Config JWT auth
+// JWT config
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -22,10 +24,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddAuthorization(); // Auth JWT
+// Swagger config
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerConfig();
 
+builder.Services.AddAuthorization(); // Auth JWT
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
@@ -33,13 +37,14 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-app.UseAuthentication(); // Auth JWT
+app.UseAuthentication();
+app.UseAuthorization(); // Auth JWT
 
 app.MapControllers();
 

@@ -40,3 +40,6 @@ C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\Microsoft.I
 C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll

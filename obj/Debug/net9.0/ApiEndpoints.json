@@ -1,5 +1,15 @@
 [
   {
+    "ContainingType": "ApiPersonalGestionFinance.Controllers.AccountController",
+    "Method": "Get",
+    "RelativePath": "api/Account/test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ApiPersonalGestionFinance.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",
