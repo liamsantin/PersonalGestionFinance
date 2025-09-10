@@ -32,3 +32,11 @@ C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\obj\Debug\net9.0\refint\ApiP
 C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\obj\Debug\net9.0\ApiPersonalGestionFinance.pdb
 C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\obj\Debug\net9.0\ApiPersonalGestionFinance.genruntimeconfig.cache
 C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\obj\Debug\net9.0\ref\ApiPersonalGestionFinance.dll
+C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\liamsantin\DEV\_API\PersonalGestionFinance\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
