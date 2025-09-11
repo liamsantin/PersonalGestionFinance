@@ -34,12 +34,8 @@ public class User
     [Column("user_phone")]
     public string Phone { get; set; }
 
-    [Column("user_address")]
-    public string Address { get; set; }
-
-    [Required]
-    [Column("user_isActive")]
-    public bool IsActive { get; set; } = true; // SQLite utilise INTEGER 1/0
+    [ForeignKey("AddressId")]
+    public Address Address { get; set; }
 
     [Required]
     [Column("user_createAt")]

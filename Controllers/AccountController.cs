@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ApiPersonalGestionFinance.Database;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,9 @@ namespace ApiPersonalGestionFinance.Controllers;
 [Authorize]
 public class AccountController : ControllerBase
 {
+
+    private readonly AppDbContext _context;
+
     [HttpGet("test")]
     public IActionResult Get()
     {
