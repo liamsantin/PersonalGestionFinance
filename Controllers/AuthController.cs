@@ -19,7 +19,7 @@ public class AuthController : Controller
     {
         _config = config;
     }
-
+    
     [HttpPost("login")]
     public IActionResult Login([FromBody] AuthRequest authRequest)
     {
