@@ -7,4 +7,4 @@ VALUES
 
 INSERT INTO TA_USER (user_nom, user_prenom, user_email, user_password, user_iban, user_phone, addr_id)
 VALUES
-    ('Santin', 'Liam', 'lsantin312005@gmail.com', 'password', 'CH9300762011623852957', '+41791234567', 1);
+    ('Santin', 'Liam', 'lsantin312005@gmail.com', 'password', '+41791234567', 1);

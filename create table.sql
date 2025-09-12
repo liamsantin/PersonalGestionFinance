@@ -14,13 +14,15 @@ CREATE TABLE TA_USER (
     user_prenom    TEXT NOT NULL,
     user_email     TEXT NOT NULL UNIQUE,
     user_password  TEXT NOT NULL,
-    user_iban      TEXT NOT NULL CHECK (
-                      length(user_iban) = 21
-                      AND substr(user_iban, 1, 2) = 'CH'
-                    ),
+    user_iban      TEXT,
     user_phone     TEXT,
     addr_id        INTEGER,  -- référence à l'adresse principale
     user_createAt  DATETIME NOT NULL DEFAULT (datetime('now')),
     user_updateAt  DATETIME NOT NULL DEFAULT (datetime('now')),
     FOREIGN KEY (addr_id) REFERENCES TA_ADDRESS(addr_id) ON DELETE SET NULL
 );
+
+/*CHECK (
+                      length(user_iban) = 21
+                      AND substr(user_iban, 1, 2) = 'CH'
+                    ),*/

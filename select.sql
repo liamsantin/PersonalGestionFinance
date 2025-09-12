@@ -1,0 +1,1 @@
+SELECT user_id, user_email, user_password FROM TA_USER WHERE user_email = 'lsantin312005@gmail.com'
