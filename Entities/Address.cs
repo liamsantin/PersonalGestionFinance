@@ -16,14 +16,17 @@ public class Address
     public string Street { get; set; }
 
     [Required]
-    [Column("add_city")]
-    public string City { get; set; }
-
-    [Required]
-    [Column("addr_code")]
+    [Column("addr_postalCode")]
     public string PostalCode { get; set; }
 
     [Required]
+    [Column("addr_city")]
+    public string City { get; set; }
+
+    [Required]
     [Column("addr_country")]
-    public string Country { get; set; }
+    public string Country { get; set; } = "CH";
+
+    // Relation inverse : une adresse peut appartenir à plusieurs utilisateurs
+    public ICollection<User> Users { get; set; } = new List<User>();
 }

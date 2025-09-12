@@ -1,5 +1,7 @@
 using ApiPersonalGestionFinance.Configurations;
 using ApiPersonalGestionFinance.Database;
+using ApiPersonalGestionFinance.Repository;
+using ApiPersonalGestionFinance.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -12,10 +14,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<AuthService>();
+
 // JWT config
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = false,          // pas d’issuer

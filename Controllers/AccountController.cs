@@ -11,8 +11,6 @@ namespace ApiPersonalGestionFinance.Controllers;
 public class AccountController : ControllerBase
 {
 
-    private readonly AppDbContext _context;
-
     [HttpGet("test")]
     public IActionResult Get()
     {

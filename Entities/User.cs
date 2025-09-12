@@ -32,10 +32,14 @@ public class User
     public string Iban { get; set; }
 
     [Column("user_phone")]
-    public string Phone { get; set; }
+    public string? Phone { get; set; }
+
+    // Clé étrangère vers TA_ADDRESS
+    [Column("addr_id")]
+    public int? AddressId { get; set; }
 
     [ForeignKey("AddressId")]
-    public Address Address { get; set; }
+    public Address? Address { get; set; }
 
     [Required]
     [Column("user_createAt")]
@@ -44,5 +48,4 @@ public class User
     [Required]
     [Column("user_updateAt")]
     public DateTime UpdateAt { get; set; } = DateTime.UtcNow;
-
 }

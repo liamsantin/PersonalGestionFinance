@@ -1,4 +1,5 @@
 ﻿using ApiPersonalGestionFinance.Models;
+using ApiPersonalGestionFinance.Services;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -13,44 +14,27 @@ namespace ApiPersonalGestionFinance.Controllers;
 public class AuthController : Controller
 {
 
-    private readonly IConfiguration _config;
+    private readonly AuthService _authService;
 
-    public AuthController(IConfiguration config)
+    public AuthController(AuthService authService)
     {
-        _config = config;
+        _authService = authService;
     }
-    
+
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] AuthRequest request)
+    {
+        await _authService.RegisterAsync(request.Email, request.Password);
+        return Ok("Utilisateur enregistré avec succès");
+    }
+
     [HttpPost("login")]
-    public IActionResult Login([FromBody] AuthRequest authRequest)
+    public async Task<IActionResult> Login([FromBody] AuthRequest request)
     {
-        if (authRequest.Username == "admin" && authRequest.Password == "password") // vérification basique
-        {
-            var token = GenerateJwtToken(authRequest.Username);
-            return Ok(new { token });
-        }
-        return Unauthorized();
-    }
+        var token = await _authService.AuthenticateAsync(request.Email, request.Password);
+        if (token == null) return Unauthorized("Email ou mot de passe incorrect");
 
-    private string GenerateJwtToken(string username)
-    {
-        var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(_config["Jwt:Key"]!)
-        );
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        var claims = new[]
-        {
-        new Claim(JwtRegisteredClaimNames.Sub, username),
-        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-    };
-
-        var token = new JwtSecurityToken(
-            claims: claims,
-            expires: DateTime.Now.AddHours(1),
-            signingCredentials: creds
-        );
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        return Ok(new { Token = token });
     }
 
 }
