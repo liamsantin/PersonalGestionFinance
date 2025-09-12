@@ -18,11 +18,6 @@ public class AuthService
     private readonly PasswordHasher<User> _passwordHasher;
     private readonly IConfiguration _config;
 
-    /// <summary>
-    /// Constructor of class
-    /// </summary>
-    /// <param name="userRepo"></param>
-    /// <param name="config"></param>
     public AuthService(AuthRepository userRepo, IConfiguration config)
     {
         _userRepo = userRepo;
@@ -30,6 +25,12 @@ public class AuthService
         _config = config;
     }
 
+    /// <summary>
+    /// Authentication method with hash password
+    /// </summary>
+    /// <param name="email"></param>
+    /// <param name="password"></param>
+    /// <returns></returns>
     public async Task<string?> AuthenticateAsync(string email, string password)
     {
         var user = await _userRepo.GetByEmailAsync(email);
@@ -39,13 +40,18 @@ public class AuthService
         return GenerateJwtToken(user);
     }
 
+    /// <summary>
+    /// Register method for add an user
+    /// </summary>
+    /// <param name="authRequest"></param>
+    /// <returns></returns>
     public async Task RegisterAsync(AuthRequest authRequest)
     {
         await _userRepo.AddAsync(authRequest);
     }
 
     /// <summary>
-    /// Generate a Jwt token
+    /// Generate a Jwt token for authentication
     /// </summary>
     /// <param name="user"></param>
     /// <returns></returns>
