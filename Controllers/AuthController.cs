@@ -21,20 +21,32 @@ public class AuthController : Controller
         _authService = authService;
     }
 
+    /// <summary>
+    /// Register of user
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] AuthRequest request)
     {
-        await _authService.RegisterAsync(request.Email, request.Password);
+        await _authService.RegisterAsync(request);
         return Ok("Utilisateur enregistré avec succès");
     }
 
+    /// <summary>
+    /// Login of user
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] AuthRequest request)
     {
         var token = await _authService.AuthenticateAsync(request.Email, request.Password);
         if (token == null) return Unauthorized("Email ou mot de passe incorrect");
 
-        return Ok(new { Token = token });
+        return Ok(new {Token = token });
     }
+
+
 
 }

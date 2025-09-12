@@ -1,25 +1,29 @@
 ﻿using ApiPersonalGestionFinance.Database;
 using ApiPersonalGestionFinance.Entities;
+using ApiPersonalGestionFinance.Models;
 using ApiPersonalGestionFinance.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using SQLitePCL;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-
 
 
 namespace ApiPersonalGestionFinance.Services;
 
 public class AuthService
 {
-    private readonly UserRepository _userRepo;
+    private readonly AuthRepository _userRepo;
     private readonly PasswordHasher<User> _passwordHasher;
     private readonly IConfiguration _config;
 
-    public AuthService(UserRepository userRepo, IConfiguration config)
+    /// <summary>
+    /// Constructor of class
+    /// </summary>
+    /// <param name="userRepo"></param>
+    /// <param name="config"></param>
+    public AuthService(AuthRepository userRepo, IConfiguration config)
     {
         _userRepo = userRepo;
         _passwordHasher = new PasswordHasher<User>();
@@ -29,24 +33,22 @@ public class AuthService
     public async Task<string?> AuthenticateAsync(string email, string password)
     {
         var user = await _userRepo.GetByEmailAsync(email);
-        if (user == null) return null;
-
-        // var result = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
-
-        // if (result == PasswordVerificationResult.Failed) return null;
-
-        if (user.Email != email || user.Password != password) return null;
-
+            if (user == null) return null;
+        var isValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
+            if (!isValid) return null;
         return GenerateJwtToken(user);
     }
 
-    public async Task RegisterAsync(string email, string password)
+    public async Task RegisterAsync(AuthRequest authRequest)
     {
-        var user = new User { Email = email, Password = password };
-        user.Password = _passwordHasher.HashPassword(user, password);
-        await _userRepo.AddAsync(user);
+        await _userRepo.AddAsync(authRequest);
     }
 
+    /// <summary>
+    /// Generate a Jwt token
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
     private string GenerateJwtToken(User user)
     {
         var claims = new[]
@@ -68,5 +70,4 @@ public class AuthService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
-
 }
