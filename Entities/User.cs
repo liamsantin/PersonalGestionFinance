@@ -3,7 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApiPersonalGestionFinance.Entities;
 
-
+/// <summary>
+/// Entity of an user
+/// </summary>
 public class User
 {
     public int UserId { get; set; }

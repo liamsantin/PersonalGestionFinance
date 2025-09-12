@@ -31,7 +31,7 @@ public class AuthService
     /// <param name="email"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    public async Task<string?> AuthenticateAsync(string email, string password)
+    public async Task<string?> AuthenticateService(string email, string password)
     {
         var user = await _userRepo.GetByEmailAsync(email);
             if (user == null) return null;
@@ -45,7 +45,7 @@ public class AuthService
     /// </summary>
     /// <param name="authRequest"></param>
     /// <returns></returns>
-    public async Task RegisterAsync(AuthRequest authRequest)
+    public async Task RegisterService(AuthRequest authRequest)
     {
         await _userRepo.AddAsync(authRequest);
     }

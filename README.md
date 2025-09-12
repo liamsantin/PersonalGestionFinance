@@ -1,1 +1,3 @@
-API of project 
+# API of project PersonalGestionFinance
+
+##Structure 

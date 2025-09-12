@@ -1,8 +1,52 @@
 [
   {
-    "ContainingType": "ApiPersonalGestionFinance.Controllers.AccountController",
-    "Method": "Get",
-    "RelativePath": "api/Account/test",
+    "ContainingType": "ApiPersonalGestionFinance.Controllers.AddressController",
+    "Method": "AddAddress",
+    "RelativePath": "api/Address",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addressRequest",
+        "Type": "ApiPersonalGestionFinance.Models.AddressRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ApiPersonalGestionFinance.Controllers.AddressController",
+    "Method": "DeleteAddress",
+    "RelativePath": "api/Address/{index}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "index",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ApiPersonalGestionFinance.Controllers.AddressController",
+    "Method": "GetAllAddress",
+    "RelativePath": "api/Address/all",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

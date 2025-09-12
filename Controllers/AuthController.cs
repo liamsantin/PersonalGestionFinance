@@ -29,7 +29,7 @@ public class AuthController : Controller
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] AuthRequest request)
     {
-        await _authService.RegisterAsync(request);
+        await _authService.RegisterService(request);
         return Ok("Utilisateur enregistré avec succès");
     }
 
@@ -41,12 +41,9 @@ public class AuthController : Controller
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] AuthRequest request)
     {
-        var token = await _authService.AuthenticateAsync(request.Email, request.Password);
+        var token = await _authService.AuthenticateService(request.Email, request.Password);
         if (token == null) return Unauthorized("Email ou mot de passe incorrect");
 
         return Ok(new {Token = token });
     }
-
-
-
 }
