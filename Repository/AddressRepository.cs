@@ -38,6 +38,25 @@ public class AddressRepository
         return address;
     }
 
+    public async Task<Address> GetOneAddress(int id)
+    {
+        var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync();
+
+        var cmd = connection.CreateCommand();
+        cmd.CommandText = "SELECT * from TA_ADDRESS where addr_id = $id";
+        cmd.Parameters.AddWithValue("$id", id);
+
+        var reader = cmd.ExecuteReader();
+
+        if (await reader.ReadAsync())
+        {
+            return BuildAddress(reader);
+        }
+
+        return null;
+    }
+
     /// <summary>
     /// Repository - add an address with insert into
     /// </summary>

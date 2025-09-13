@@ -30,6 +30,17 @@ public class AddressController : ControllerBase
     }
 
     /// <summary>
+    /// Controller - get one address
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetOneAddress(int id)
+    {
+        var response = _addressService.GetOneAddressService(id);
+        return Ok(response);
+    }
+
+    /// <summary>
     /// Controller - Add an address
     /// </summary>
     /// <param name="addressRequest"></param>

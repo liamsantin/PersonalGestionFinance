@@ -24,6 +24,16 @@ public class AddressService
     }
 
     /// <summary>
+    /// Service - get one address
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public async Task<Address> GetOneAddressService(int id)
+    {
+        return await _addressRepo.GetOneAddress(id);
+    }
+
+    /// <summary>
     /// Service - add an address
     /// </summary>
     /// <param name="addressRequest"></param>
