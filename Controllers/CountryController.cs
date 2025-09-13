@@ -28,4 +28,16 @@ public class CountryController : ControllerBase
         var response = await _countryService.GetAllCountryService();
         return Ok(response);
     }
+
+    /// <summary>
+    /// Controller - get one country by id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetOneCountry(int id)
+    {
+        var response = await _countryService.GetOneCountryService(id);
+        return Ok(response);
+    }
 }

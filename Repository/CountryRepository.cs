@@ -18,7 +18,7 @@ public class CountryRepository
     /// Repository - get all countries
     /// </summary>
     /// <returns></returns>
-    public async Task<List<Country>> GetAllCountry()
+    public async Task<List<Country>> GetAllCountryRepo()
     {
         var countries = new List<Country>();
 
@@ -36,6 +36,25 @@ public class CountryRepository
         }
 
         return countries;
+    }
+
+    public async Task<Country> GetOneCountryRepo(int id)
+    {
+        var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync();
+
+        var cmd = connection.CreateCommand();
+        cmd.CommandText = "SELECT * FROM TA_COUNTRY where country_id = $id";
+        cmd.Parameters.AddWithValue("$id", id);
+
+        var reader = await cmd.ExecuteReaderAsync();
+
+        if (await reader.ReadAsync())
+        {
+            return BuildCountry(reader);
+        }
+
+        return null;
     }
 
     #region Private methods

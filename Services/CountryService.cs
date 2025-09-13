@@ -15,7 +15,12 @@ public class CountryService
     
     public async Task<List<Country>> GetAllCountryService()
     {
-        return await _countryRepo.GetAllCountry();
+        return await _countryRepo.GetAllCountryRepo();
+    }
+
+    public async Task<Country> GetOneCountryService(int id)
+    {
+        return await _countryRepo.GetOneCountryRepo(id);
     }
 
 }
