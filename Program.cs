@@ -16,10 +16,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Repository
 builder.Services.AddScoped<AuthRepository>();
 builder.Services.AddScoped<AddressRepository>();
+builder.Services.AddScoped<CountryRepository>();
 
 // Services
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<AddressService>();
+builder.Services.AddScoped<CountryService>();
 
 // JWT config
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
