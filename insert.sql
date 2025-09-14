@@ -1,10 +1,8 @@
-INSERT INTO TA_ADDRESS (addr_street, addr_postalCode, addr_city, addr_country)
+INSERT INTO TA_ADDRESS (addr_street, addr_postalCode, addr_city, country_id)
 VALUES 
-    ('Rue du Lac 12', '1200', 'Genève', 'CH'),   -- id = 1
-    ('Avenue Centrale 45', '1003', 'Lausanne', 'CH'), -- id = 2
-    ('Via Roma 8', '6900', 'Lugano', 'CH');      -- id = 3
+    ('Rue du Lac 12', '1200', 'Genève', 2),   -- id = 1
+    ('Avenue Centrale 45', '1003', 'Lausanne', 2), -- id = 2
+    ('Via Roma 8', '6900', 'Lugano', 2);      -- id = 3
 
 
-INSERT INTO TA_USER (user_nom, user_prenom, user_email, user_password, user_iban, user_phone, addr_id)
-VALUES
-    ('Santin', 'Liam', 'lsantin312005@gmail.com', 'password', '+41791234567', 1);
+

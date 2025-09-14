@@ -1,11 +1,3 @@
-DROP TABLE TA_ADDRESS;
-CREATE TABLE TA_ADDRESS (
-    addr_id        INTEGER PRIMARY KEY AUTOINCREMENT,
-    addr_street    TEXT NOT NULL,
-    addr_postalCode TEXT NOT NULL,
-    addr_city      TEXT NOT NULL,
-    addr_country   TEXT NOT NULL DEFAULT 'CH'
-);
 
 DROP TABLE TA_USER;
 CREATE TABLE TA_USER (
@@ -22,6 +14,22 @@ CREATE TABLE TA_USER (
     FOREIGN KEY (addr_id) REFERENCES TA_ADDRESS(addr_id) ON DELETE SET NULL
 );
 
+DROP TABLE TA_COUNTRY;
+CREATE TABLE TA_COUNTRY (
+	country_id		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	country_name	CHAR(100) NOT NULL UNIQUE,
+	country_iso		CHAR(2) NOT NULL UNIQUE
+);
+
+DROP TABLE TA_ADDRESS;
+CREATE TABLE TA_ADDRESS (
+    addr_id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    addr_street    TEXT NOT NULL,
+    addr_postalCode TEXT NOT NULL,
+    addr_city      TEXT NOT NULL,
+    country_id   INTEGER,
+	FOREIGN KEY (country_id) REFERENCES TA_COUNTRY(country_id) ON DELETE SET NULL
+);
 /*CHECK (
                       length(user_iban) = 21
                       AND substr(user_iban, 1, 2) = 'CH'
