@@ -1,5 +1,8 @@
 ﻿namespace ApiPersonalGestionFinance.Models.Responses;
 
+/// <summary>
+/// Response of get for an address 
+/// </summary>
 public class AddressResponse
 {
     // ta_address

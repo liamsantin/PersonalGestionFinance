@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ApiPersonalGestionFinance.Entities;
 
 /// <summary>
-/// Entity of an user
+/// Entity of an user 
 /// </summary>
 public class User
 {
@@ -15,7 +15,13 @@ public class User
     public string Password { get; set; }
     public string? Iban { get; set; }
     public string Phone { get; set; }
-    public int AddressId { get; set; } // foreign key
+    // address
+    public string Street { get; set; }
+    public string PostalCode { get; set; }
+    public string City { get; set; }
+    // country
+    public string Country { get; set; }
+    public string ISO { get; set; }
     public DateTime CreateAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdateAt { get; set; } = DateTime.UtcNow;
 }
