@@ -1,5 +1,6 @@
 ﻿using ApiPersonalGestionFinance.Entities;
 using ApiPersonalGestionFinance.Models;
+using ApiPersonalGestionFinance.Models.Responses;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Data.Sqlite;
 
@@ -18,40 +19,43 @@ public class AddressRepository
     /// Repository - get all address with select
     /// </summary>
     /// <returns></returns>
-    public async Task<List<Address>> GetAllAddress()
+    public async Task<List<AddressResponse>> GetAllAddress()
     {
-        var address = new List<Address>();
+        var address = new List<AddressResponse>();
 
         var connection = new SqliteConnection(_connectionString);
         await connection.OpenAsync();
 
         var cmd = connection.CreateCommand();
-        cmd.CommandText = "SELECT * FROM TA_ADDRESS";
+        cmd.CommandText = "SELECT a.addr_id, a.addr_street, a.addr_postalCode, a.addr_city, c.country_name, c.country_iso" +
+                          " FROM TA_ADDRESS a INNER JOIN TA_COUNTRY c ON a.country_id = c.country_id";
 
         var reader = cmd.ExecuteReader();
 
         while(await reader.ReadAsync())
         {
-            address.Add(BuildAddress(reader));
+            address.Add(BuildAddressWithCountry(reader));
         }
 
         return address;
     }
 
-    public async Task<Address> GetOneAddress(int id)
+    public async Task<AddressResponse> GetOneAddress(int id)
     {
         var connection = new SqliteConnection(_connectionString);
         await connection.OpenAsync();
 
         var cmd = connection.CreateCommand();
-        cmd.CommandText = "SELECT * from TA_ADDRESS where addr_id = $id";
+        cmd.CommandText = "SELECT a.addr_id, a.addr_street, a.addr_postalCode, a.addr_city, c.country_name, c.country_iso" +
+                          " FROM TA_ADDRESS a INNER JOIN TA_COUNTRY c ON a.country_id = c.country_id " +
+                          " where a.addr_id = $id";
         cmd.Parameters.AddWithValue("$id", id);
 
         var reader = cmd.ExecuteReader();
 
         if (await reader.ReadAsync())
         {
-            return BuildAddress(reader);
+            return BuildAddressWithCountry(reader);
         }
 
         return null;
@@ -67,8 +71,8 @@ public class AddressRepository
         await using var connection = new SqliteConnection(_connectionString);
         await connection.OpenAsync();
 
-        var sql = @"INSERT INTO TA_ADDRESS (addr_street, addr_postalCode, addr_city, addr_country)
-                VALUES ($street, $postalCode, $city, $country)";
+        var sql = @"INSERT INTO TA_ADDRESS (addr_street, addr_postalCode, addr_city, country_id)
+                VALUES ($street, $postalCode, $city, $countryId)";
 
         await using var command = connection.CreateCommand();
         command.CommandText = sql;
@@ -76,7 +80,7 @@ public class AddressRepository
         command.Parameters.AddWithValue("$street", addressRequest.Street);
         command.Parameters.AddWithValue("$postalCode", addressRequest.PostalCode);
         command.Parameters.AddWithValue("$city", addressRequest.City);
-        command.Parameters.AddWithValue("$country", addressRequest.Country);
+        command.Parameters.AddWithValue("$countryId", addressRequest.CountryId);
 
         await command.ExecuteNonQueryAsync();
     }
@@ -103,15 +107,16 @@ public class AddressRepository
 
     /* Private method */
     #region Methode privées
-    private static Address BuildAddress(SqliteDataReader reader)
+    private static AddressResponse BuildAddressWithCountry(SqliteDataReader reader)
     {
-        return new Address
+        return new AddressResponse
         {
             AddressId = reader.GetInt32(0),         // addr_id
             Street = reader.GetString(1),           // street
             PostalCode = reader.GetString(2),             // city
             City = reader.GetString(3),              // zip
-            Country = reader.GetString(4)
+            Country = reader.GetString(4),
+            ISO = reader.GetString(5)
         };
 
     }

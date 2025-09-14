@@ -1,6 +1,8 @@
 ﻿using ApiPersonalGestionFinance.Entities;
 using ApiPersonalGestionFinance.Models;
+using ApiPersonalGestionFinance.Models.Responses;
 using ApiPersonalGestionFinance.Repository;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using System.Runtime.CompilerServices;
 
 namespace ApiPersonalGestionFinance.Services;
@@ -18,7 +20,7 @@ public class AddressService
     /// Service - get all address
     /// </summary>
     /// <returns></returns>
-    public async Task<List<Address>> GetAllAddressService()
+    public async Task<List<AddressResponse>> GetAllAddressService()
     {
         return await _addressRepo.GetAllAddress();
     }
@@ -28,7 +30,7 @@ public class AddressService
     /// </summary>
     /// <param name="index"></param>
     /// <returns></returns>
-    public async Task<Address> GetOneAddressService(int id)
+    public async Task<AddressResponse> GetOneAddressService(int id)
     {
         return await _addressRepo.GetOneAddress(id);
     }
