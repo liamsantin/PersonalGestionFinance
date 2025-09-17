@@ -7,7 +7,17 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import { setupLayouts } from 'virtual:generated-layouts'
-import { routes } from 'vue-router/auto-routes'
+import HomeView from "@/components/HomeView.vue"
+import UserView from "@/components/UserView.vue"
+import LoginView from '@/components/LoginView.vue'
+
+const routes = [
+  { path: '/', redirect: '/login' },
+  { path: '/login', name: 'Login', component: LoginView },
+  { path: '/home', name: 'Home', component: HomeView },
+  { path: '/user', name: 'User', component: UserView },
+]
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
