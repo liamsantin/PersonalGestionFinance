@@ -1,3 +1,10 @@
+DROP TABLE TA_COUNTRY;
+CREATE TABLE TA_COUNTRY (
+	country_id		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	country_name	CHAR(100) NOT NULL UNIQUE,
+	country_iso		CHAR(2) NOT NULL UNIQUE
+);
+
 INSERT INTO TA_COUNTRY (country_name, country_iso) VALUES ('Afghanistan', 'AF');
 INSERT INTO TA_COUNTRY (country_name, country_iso) VALUES ('Albania', 'AL');
 INSERT INTO TA_COUNTRY (country_name, country_iso) VALUES ('Algeria', 'DZ');
