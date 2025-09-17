@@ -7,6 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
+/**
+ * Modélisation de l'API
+ * Controller <- Service <- Repository <- Entities/Models and DB Connection
+ */
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Db Context --> search in AppSettings
@@ -17,11 +22,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<AuthRepository>();
 builder.Services.AddScoped<AddressRepository>();
 builder.Services.AddScoped<CountryRepository>();
+builder.Services.AddScoped<UserRepository>();
 
 // Services
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<CountryService>();
+builder.Services.AddScoped<UserService>();
 
 // JWT config
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -39,6 +46,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             )
         };
     });
+
+// Autoriser CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000") // ton front Vue
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 // Swagger config
 builder.Services.AddEndpointsApiExplorer();
@@ -58,6 +77,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Utiliser CORS
+app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
 app.UseAuthorization(); // Auth JWT
