@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { useAuthStore } from '@/stores/auth'
+import { ref } from 'vue'
   import { useRoute } from 'vue-router'
 
 
@@ -7,9 +8,15 @@
   const rail = ref(true)
 
   const route = useRoute()
-  const showDrawer = computed(() => route.name !== 'Login')
+  const showDrawer = computed(() => route.name !== 'Login' && route.name !== 'Register')
 
-  console.log(route.name)
+  const auth = useAuthStore()
+
+  function logout(){
+    auth.logout()
+  }
+
+
 </script>
 <template>
 
@@ -58,6 +65,9 @@
             value="users"
           ></v-list-item>
         </v-list>
+
+        <v-btn block v-if="!rail" to="/" width="70%" @click="logout">Logout</v-btn>
+
       </v-navigation-drawer>
       
       <v-main>
