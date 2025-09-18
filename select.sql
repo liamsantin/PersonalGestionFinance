@@ -3,3 +3,5 @@ u.user_phone,a.addr_street,a.addr_postalCode,a.addr_city,c.country_name,c.countr
 u.user_updateAt FROM TA_USER u 
 LEFT JOIN TA_ADDRESS a ON u.addr_id = a.addr_id 
 LEFT JOIN TA_COUNTRY c ON a.country_id = c.country_id;
+
+SELECT user_id, user_username, user_password FROM TA_USER WHERE user_username = 'ls'
