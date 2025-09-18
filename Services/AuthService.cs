@@ -31,9 +31,9 @@ public class AuthService
     /// <param name="email"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    public async Task<string?> AuthenticateService(string email, string password)
+    public async Task<JwtResponse> AuthenticateService(string username, string password)
     {
-        var user = await _userRepo.GetByEmailAsync(email);
+        var user = await _userRepo.GetByUsernameAsync(username);
             if (user == null) return null;
         var isValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
             if (!isValid) return null;
@@ -55,11 +55,11 @@ public class AuthService
     /// </summary>
     /// <param name="user"></param>
     /// <returns></returns>
-    private string GenerateJwtToken(User user)
+    private JwtResponse GenerateJwtToken(User user)
     {
         var claims = new[]
         {
-            new Claim(ClaimTypes.Name, user.Email),
+            new Claim(ClaimTypes.Name, user.Username),
             new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString())
         };
 
@@ -74,6 +74,10 @@ public class AuthService
             signingCredentials: creds
         );
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        return new JwtResponse
+        {
+            Token = new JwtSecurityTokenHandler().WriteToken(token),
+            UserId = user.UserId
+        };
     }
 }

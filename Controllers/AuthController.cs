@@ -1,4 +1,5 @@
-﻿using ApiPersonalGestionFinance.Models;
+﻿using ApiPersonalGestionFinance.Entities;
+using ApiPersonalGestionFinance.Models;
 using ApiPersonalGestionFinance.Services;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -41,9 +42,13 @@ public class AuthController : Controller
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] AuthRequest request)
     {
-        var token = await _authService.AuthenticateService(request.Email, request.Password);
-        if (token == null) return Unauthorized("Email ou mot de passe incorrect");
+        var token = await _authService.AuthenticateService(request.Username, request.Password);
+        if (token == null) return Unauthorized("Nom d'utilisateur ou mot de passe incorrect");
 
-        return Ok(new {Token = token });
+        return Ok(new JwtResponse
+        {
+            Token = token.Token,
+            UserId = token.UserId
+        });
     }
 }
